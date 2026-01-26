@@ -24,6 +24,12 @@ app.get("/api/v1/portfolio/performance", (req, res) => {
     const initialInvestment = Number(req.query.initialInvestment);
     const currentValue = Number(req.query.currentValue);
 
+    if (!Number.isFinite(initialInvestment)) {
+        return res.status(400).json({
+            error: "Initial investment must be a valid number."
+        });
+    }
+
     const performance = calculatePortfolioPerformance(initialInvestment, currentValue);
     res.json(performance);
 });
