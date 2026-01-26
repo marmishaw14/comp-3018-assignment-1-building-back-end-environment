@@ -30,6 +30,12 @@ app.get("/api/v1/portfolio/performance", (req, res) => {
         });
     }
 
+    if (!Number.isFinite(currentValue)) {
+        return res.status(400).json({
+            error: "The portfolio's current value must be a valid number."
+        });
+    }
+
     const performance = calculatePortfolioPerformance(initialInvestment, currentValue);
     res.json(performance);
 });
